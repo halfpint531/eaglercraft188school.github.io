@@ -1,0 +1,45 @@
+<html>
+<body>
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        // Keep track of conversation history
+        let conversationHistory = [];
+
+        async function continueConversation(userMessage) {
+            // Add user message to history
+            conversationHistory.push({
+                role: "user",
+                content: userMessage
+            });
+
+            // Get response from Grok
+            const response = await puter.ai.chat(conversationHistory, {
+                model: 'x-ai/grok-4-1-fast'
+            });
+
+            // Add Grok's response to history
+            conversationHistory.push({
+                role: "assistant",
+                content: response.message.content
+            });
+
+            return response.message.content;
+        }
+
+        // Example usage
+        async function demonstrateConversation() {
+            let response;
+            
+            response = await continueConversation("What's the most interesting thing about space?");
+            document.body.innerHTML += `<p><strong>You:</strong> What's the most interesting thing about space?</p>`;
+            document.body.innerHTML += `<p><strong>Grok:</strong> ${response}</p>`;
+
+            response = await continueConversation("Tell me more about that!");
+            document.body.innerHTML += `<p><strong>You:</strong> Tell me more about that!</p>`;
+            document.body.innerHTML += `<p><strong>Grok:</strong> ${response}</p>`;
+        }
+
+        demonstrateConversation();
+    </script>
+</body>
+</html>
