@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PizzaNet Guest Book</title>
+    <script>
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('pizzaOrders')) || [];
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '';
+
+            if (orders.length === 0) {
+                container.innerHTML = '<p>No orders yet.</p>';
+                return;
+            }
+
+            orders.forEach((order, index) => {
+                const orderDiv = document.createElement('div');
+                orderDiv.style.border = '1px solid #000';
+                orderDiv.style.padding = '10px';
+                orderDiv.style.marginBottom = '10px';
+
+                orderDiv.innerHTML = `
+                    <h3>Order ${index + 1}</h3>
+                    <ul>
+                        <li><strong>Name:</strong> ${order.name}</li>
+                        <li><strong>Address:</strong> ${order.address}</li>
+                        <li><strong>Phone:</strong> ${order.phone}</li>
+                        <li><strong>Pizza Size:</strong> ${order.size}</li>
+                        <li><strong>Toppings:</strong> ${order.toppings.length > 0 ? order.toppings.join(', ') : 'None'}</li>
+                    </ul>
+                `;
+                container.appendChild(orderDiv);
+            });
+        }
+        window.onload = loadOrders;
+    </script>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+
+    <center>
+        <h1><font color="red">PizzaNet Guest Book</font></h1>
+        <hr width="80%">
+    </center>
+
+    <div id="ordersContainer"></div>
+
+    <center>
+        <p><a href="pizzanet2.html">Back to Order Form</a></p>
+    </center>
+
+</body>
+</html>
