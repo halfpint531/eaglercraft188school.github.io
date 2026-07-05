@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PizzaNet Order Form</title>
+    <script>
+        function submitOrder(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const size = document.getElementById('size').value;
+
+            const toppings = [];
+            if (document.getElementById('top1').checked) toppings.push('Pepperoni');
+            if (document.getElementById('top2').checked) toppings.push('Mushrooms');
+            if (document.getElementById('top3').checked) toppings.push('Sausage');
+            if (document.getElementById('top4').checked) toppings.push('Pineapple);
+
+            const order = {
+                name,
+                address,
+                phone,
+                size,
+                toppings
+            };
+
+            // Save order to local storage
+            let orders = JSON.parse(localStorage.getItem('pizzaOrders')) || [];
+            orders.push(order);
+            localStorage.setItem('pizzaOrders', JSON.stringify(orders));
+
+            alert('Order submitted! You can view all orders on the Guest Book page.');
+            document.getElementById('orderForm').reset();
+        }
+    </script>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+
+    <center>
+        <h1><font color="red">PizzaNet</font></h1>
+        <h3>Pizza Hut's Electronic Storefront</h3>
+        <p><em>Brought to you by Pizza Hut and The Santa Cruz Operation</em></p>
+        <hr width="80%">
+    </center>
+
+    <p>Welcome to the future of pizza ordering. Fill out the form below to submit your order directly to our Santa Cruz branch.</p>
+
+    <form id="orderForm" onsubmit="submitOrder(event)">
+        <table cellpadding="5">
+            <tr>
+                <td><strong>Name:</strong></td>
+                <td><input type="text" id="name" name="name" size="30" required></td>
+            </tr>
+            <tr>
+                <td><strong>Address:</strong></td>
+                <td><input type="text" id="address" name="address" size="40" required></td>
+            </tr>
+            <tr>
+                <td><strong>Phone:</strong></td>
+                <td><input type="text" id="phone" name="phone" size="20" required></td>
+            </tr>
+            <tr>
+                <td><strong>Pizza Size:</strong></td>
+                <td>
+                    <select id="size" name="size" required>
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Toppings:</strong></td>
+                <td>
+                    <input type="checkbox" id="top1" name="top1" value="pepperoni"> Pepperoni<br>
+                    <input type="checkbox" id="top2" name="top2" value="mushrooms"> Mushrooms<br>
+                    <input type="checkbox" id="top3" name="top3" value="sausage"> Sausage
+                </td>
+            </tr>
+        </table>
+        <br>
+        <center>
+            <input type="submit" value="Submit Order to PizzaNet">
+            <input type="reset" value="Clear Form">
+        </center>
+    </form>
+
+    <hr width="80%">
+    <center>
+        <p><i>Note: An operator may call to verify your order.</i></p>
+        <p><a href="guestbook.html">View Guest Book / All Orders</a></p>
+    </center>
+
+</body>
+</html>
+  
